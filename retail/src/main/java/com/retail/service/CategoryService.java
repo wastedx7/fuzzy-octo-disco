@@ -12,4 +12,5 @@ public interface CategoryService {
     
     CategoryResponse addCategory(CategoryRequest request);
     List<CategoryResponse> read();
+    void delete(String categoryId);
 }

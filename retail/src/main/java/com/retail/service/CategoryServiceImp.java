@@ -35,12 +35,19 @@ public class CategoryServiceImp implements CategoryService{
             .collect(Collectors.toList());
     }
 
+    @Override
+    public void delete(String categoryId) {
+        CategoryEntity existingCategory = categoryRepository.findByCategoryId(categoryId)
+            .orElseThrow(() -> new RuntimeException("category not found" + categoryId));
+        categoryRepository.delete(existingCategory); 
+    }
+
     // both are private methods
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
         return CategoryResponse.builder()
             .categoryId(newCategory.getCategoryId())
             .name(newCategory.getName())
-            .description(newCategory.getName())
+            .description(newCategory.getDescription())
             .bgColor(newCategory.getBgColor())
             .imgUrl(newCategory.getImgUrl())
             .createdAt(newCategory.getCreatedAt())
